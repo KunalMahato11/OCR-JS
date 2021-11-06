@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Image to text</title>
+
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			.main {
+				background-color: #262626;
+				width: 100%;
+				height: 100vh;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				color: white;
+			}
+			.button {
+				position: relative;
+				display: block;
+				width: 200px;
+				height: 36px;
+				border-radius: 18px;
+				background-color: #1c89ff;
+				border: solid 1px transparent;
+				color: #fff;
+				font-size: 18px;
+				font-weight: 300;
+				cursor: pointer;
+				transition: all 0.1s ease-in-out;
+			}
+			.button:hover {
+				background-color: transparent;
+				border-color: #fff;
+				transition: all 0.1s ease-in-out;
+			}
+			.loader {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 50px;
+				height: 50px;
+				background: transparent;
+				margin: 30px auto 0 auto;
+				border: solid 2px #424242;
+				border-top: solid 2px #1c89ff;
+				border-radius: 50%;
+				opacity: 0;
+			}
+			.check {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				transform: translate3d(-4px, 50px, 0);
+				opacity: 0;
+			}
+			.check span:nth-child(1) {
+				display: block;
+				width: 10px;
+				height: 2px;
+				background-color: #fff;
+				transform: rotate(45deg);
+			}
+			.check span:nth-child(2) {
+				display: block;
+				width: 20px;
+				height: 2px;
+				background-color: #fff;
+				transform: rotate(-45deg) translate3d(14px, -4px, 0);
+				transform-origin: 100%;
+			}
+			.loader.active {
+				animation: loading 2s ease-in-out;
+				animation-fill-mode: forwards;
+			}
+			.check.active {
+				opacity: 1;
+				transform: translate3d(-4px, 4px, 0);
+				transition: all 0.5s cubic-bezier(0.49, 1.74, 0.38, 1.74);
+				transition-delay: 0.2s;
+			}
+			@keyframes loading {
+				30% {
+					opacity: 1;
+				}
+				85% {
+					opacity: 1;
+					transform: rotate(1080deg);
+					border-color: #262626;
+				}
+				100% {
+					opacity: 1;
+					transform: rotate(1080deg);
+					border-color: #1c89ff;
+				}
+			}
+
+			.custom {
+				width: 200px;
+				margin: 10px 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="main">
+			<h1>Image to text</h1>
+			<form action="/cart" method="post" enctype="multipart/form-data">
+				<input type="file" name="avatar" class="custom" />
+				<!-- <button type="submit">convert</button> -->
+
+				<button type="submit" class="button">Convert</button>
+				<div class="loader">
+					<div class="check">
+						<span class="check-one"></span>
+						<span class="check-two"></span>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				var btn = document.querySelector('.button'),
+					loader = document.querySelector('.loader'),
+					check = document.querySelector('.check');
+
+				btn.addEventListener('click', function () {
+					loader.classList.add('active');
+				});
+
+				loader.addEventListener('animationend', function () {
+					check.classList.add('active');
+				});
+			});
+		</script>
+	</body>
+</html>
